@@ -12,7 +12,7 @@ function Delaunay(points) {
     var coords = this.coords = [];
     var ids = this.ids = [];
 
-    for (var i = 0; i < points.length; i++) {
+    for (var i = 0, len = points.length; i < len; i++) {
         var p = points[i];
         var x = p[0];
         var y = p[1];
@@ -32,7 +32,7 @@ function Delaunay(points) {
     var i0, i1, i2;
 
     // pick a seed point close to the centroid
-    for (i = 0; i < coords.length; i += 2) {
+    for (i = 0, len = coords.length; i < coords.length; i += 2) {
         var d = dist(cx, cy, coords[i], coords[i + 1]);
         if (d < minDist) {
             i0 = i;
@@ -43,7 +43,7 @@ function Delaunay(points) {
     minDist = Infinity;
 
     // find the point closest to the seed
-    for (i = 0; i < coords.length; i += 2) {
+    for (i = 0; i < len; i += 2) {
         if (i === i0) continue;
         d = dist(coords[i0], coords[i0 + 1], coords[i], coords[i + 1]);
         if (d < minDist && d > 0) {
@@ -55,7 +55,7 @@ function Delaunay(points) {
     var minRadius = Infinity;
 
     // find the third point which forms the smallest circumcircle with the first two
-    for (i = 0; i < coords.length; i += 2) {
+    for (i = 0; i < len; i += 2) {
         if (i === i0 || i === i1) continue;
 
         var r = circumradius(
@@ -107,7 +107,7 @@ function Delaunay(points) {
     var adjacent = this.adjacent = [-1, -1, -1];
 
     var xp, yp;
-    for (var k = 0; k < ids.length; k++) {
+    for (var k = 0, len = ids.length; k < len; k++) {
         i = ids[k];
         x = coords[i];
         y = coords[i + 1];
@@ -183,8 +183,8 @@ Delaunay.prototype = {
 
     _legalize: function (a) {
         var triangles = this.triangles;
-        var coords = this.coords;
-        var adjacent = this.adjacent;
+        var coords    = this.coords;
+        var adjacent  = this.adjacent;
 
         var b = adjacent[a];
 
@@ -294,10 +294,10 @@ function circumcenter(ax, ay, bx, by, cx, cy) {
     var bl = bx * bx + by * by;
     var cl = cx * cx + cy * cy;
 
-    var d = bx * cy - by * cx;
+    var d = 0.5 / (bx * cy - by * cx);
 
-    var x = (cy * bl - by * cl) * 0.5 / d;
-    var y = (bx * cl - cx * bl) * 0.5 / d;
+    var x = (cy * bl - by * cl) * d;
+    var y = (bx * cl - cx * bl) * d;
 
     return {
         x: ax + x,

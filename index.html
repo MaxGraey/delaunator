@@ -1,11 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, shrink-to-fit=no"/>
+    <meta name="mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
     <title>Delaunator, the fastest JavaScript library for Delaunay triangulation of 2D points</title>
     <style>
-    body { margin: 0; text-align: center; font-family: sans-serif; }
-    canvas { border: 1px solid #ccc; }
-    a, a:visited { color: #09f }
+        body { margin: 0; text-align: center; font-family: sans-serif; }
+        canvas { border: 1px solid #ccc; }
+        a, a:visited { color: #09f }
     </style>
 </head>
 <body>
@@ -45,11 +50,11 @@ var h = (w - 2 * padding) * (maxY - minY) / (maxX - minX) + 2 * padding;
 canvas.style.width = w + 'px';
 canvas.style.height = h + 'px';
 
-canvas.width = w;
-canvas.height = 2;
+canvas.width  = w;
+canvas.height = h;
 
 if (window.devicePixelRatio >= 2) {
-    canvas.width = w * 2;
+    canvas.width  = w * 2;
     canvas.height = h * 2;
     ctx.scale(2, 2);
 }
