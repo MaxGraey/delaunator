@@ -95,10 +95,9 @@ function mousePointerY(event) {
 }
 
 canvas.onmousemove = function (e) {
-    var bounds = canvas.getBoundingClientRect();
     points.push([
-        (mousePointerX(e) - bounds.left - padding) / ratio + minX,
-        (mousePointerY(e) - bounds.top  - padding) / ratio + minY
+        (mousePointerX(e) - padding - canvas.offsetLeft) / ratio + minX,
+        (mousePointerY(e) - padding - canvas.offsetTop) / ratio + minY
     ]);
     console.time('delaunay');
     delaunay = new Delaunay(points);
